@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 
-const API_KEY =  "28a98df7375bc557123afedb1e6d66a2";
+const API_KEY =  "";
 const lang = 'kr'
 
 
