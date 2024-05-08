@@ -4,17 +4,7 @@
     "slug": "Project",
     "version": "1.0.0",
     "orientation": "portrait",
-<<<<<<< HEAD
     "userInterfaceStyle": "light",
-=======
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
->>>>>>> e1f44321c583c3af8ed98b32271bf342d6151c23
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -22,19 +12,10 @@
       "supportsTablet": true
     },
     "android": {
-<<<<<<< HEAD
+      "permissions": ["CAMERA", "CAMERA_ROLL"]
     },
     "web": {
     
-=======
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
->>>>>>> e1f44321c583c3af8ed98b32271bf342d6151c23
     }
   }
 }

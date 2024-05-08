@@ -1,33 +1,45 @@
 // server.js
 const express = require('express');
-const mysql = require('mysql2');
+const bodyParser = require('body-parser');
 const cors = require('cors');
-const dbconfig = require('./db.js');
-const conn = mysql.createConnection(dbconfig);
+const userdbRouter = require('./Routes/userdbRoutes');
+const userPlantdbRouter = require('./Routes/userPlantdbRoutes');
+const plantdbRouter = require('./Routes/plantdbRoutes');
+const PostdbRouter = require('./Routes/PostdbRoutes');
+const CommentdbRouter = require('./Routes/CommentdbRoutes');
+const userFavoritedbRoutes = require('./Routes/userFavoritedbRoutes');
+const TagdbRoutes = require('./Routes/TagdbRouters');
+const WeatherDataRouters = require('./Routes/WeatherDataRouter');
+const userLocationRouters = require('./Routes/userLocationRouter');
 
 const app = express();
-app.use(cors());
+const port = 8080;
+
+app.use(bodyParser.json());
+app.use(cors({
+  origin: "http://서버주소"
+}));
+
 app.use(express.json());
 
+app.use('/userdb', userdbRouter);
 
-app.set('port', process.env.PORT || 3000)
+app.use('/userplantdb', userPlantdbRouter);
 
-app.get('/', (req, res) => {
-  res.send('Root');
-});
+app.use('/plantdb', plantdbRouter);
 
-app.get('/userdb', (req, res) => {
-  conn.query('SELECT * from userdb', (error, rows) => {
-    if (error) throw error;
-    console.log('User info is: ', rows);
-    res.send(rows);
-  });
-});
+app.use('/Postdb', PostdbRouter);
 
-app.listen(app.get('port'), () => {
-  console.log('Express server listening on port ' + app.get('port'));
-});
+app.use('/commentdb', CommentdbRouter);
 
-// app.listen(port, () => {
-//   console.log('서버 연결됨', {port});
-// });
+app.use('/userfavoritedb', userFavoritedbRoutes);
+
+app.use('/tagdb', TagdbRoutes);
+
+app.use('/weather', WeatherDataRouters);
+
+app.use('/userlocationdb', userLocationRouters);
+
+app.listen(port, () => {
+  console.log('연결 완료', {port});
+})

@@ -1,98 +1,235 @@
 import React from 'react';
-<<<<<<< HEAD
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {  createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import 'react-native-gesture-handler';
-import { MaterialIcons, Octicons, Entypo, FontAwesome, AntDesign, FontAwesome5 } from '@expo/vector-icons';
+import { Octicons, Entypo, FontAwesome, AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import CustomHeaderTitle from './Components/CustomHeaderTitle';
 
+import UserProvider from './AuthContext/AuthContext';
+import SignUp from './Page/SignUp';
 import LoginPage from './Page/Login';
 import Home from './Page/Home';
-import MyCalendar from './Page/MyCalendar';
+import Community from './Page/Community';
 import Favorite from './Page/Favorite';
 import Search from './Page/Search';
 import MyPage from './Page/MyPage';
+import PlantRegister1 from './Page/PlantRegister1';
+import PlantRegister2 from './Page/PlantRegister2';
+import UserPlantInfo from './Page/UserPlantInfo';
+import EditProfile from './Page/EditProfile';
+import EditPlantInfo from './Page/EditPlantInfo';
+import NotifySettings from './Page/NotifySettings';
+import PlantDetail from './Page/PlantDetail';
+import Weather from './Page/Weather';
+import NotifyPage from './Page/NotifyPage';
+import WriteBoard from './Page/WriteBoard';
+import BoardContent from './Page/BoardContent';
+import EditBoardContent from './Page/EditBoardContent';
+import FindingId from './Page/FindingId';
+import FindingPw from './Page/FindingPw';
+import EditPassword from './Page/EditPassword';
+import Test from './Page/Test';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 //#region 바텀 네비게이션 구성
 const TabNavigator = () => (
+  <View style = {{ flex: 1, backgroundColor: 'white'}}>
     <Tab.Navigator
         screenOptions = {{ 
-            tabBarStyle: { height: 60, backgroundColor: '#a4c47a',}, 
-            tabBarLabelStyle: {fontSize: 0, fontWeight: 'bold', position: 'relative', bottom: 5},
-            tabBarInactiveTintColor: 'grey',
+            tabBarStyle: { height: 65, backgroundColor: 'white' , borderTopRightRadius: 18, borderTopLeftRadius: 18, borderTopColor: 'white'}, 
+            tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold', position: 'relative', bottom: 6 },
+            tabBarInactiveTintColor: '#979797',
             tabBarActiveTintColor: 'black',
+            tabBarItemStyle: { justifyContent: 'center', alignItems: 'center', flexDirection: 'column' },
+            tabBarIconStyle: { justifyContent: 'center', alignItems: 'center', alignContent: 'center', }
     }}>
         <Tab.Screen name = "홈" component = { Home } 
             options = {{ 
                 headerShown: false, 
-                tabBarIcon: ({color, size, focused, marginTop}) => 
-                (<HomeCustom foused = { focused } color = { color }  size = { size } marginTop = { marginTop } />)
+                tabBarIcon: ({ color, size, focused, marginTop }) => 
+                (<HomeCustom foused = { focused } color = { color }  size = { size } marginTop = { marginTop }/>)
             }} 
         />
-        <Tab.Screen name = "일정 관리" component = { MyCalendar } 
+        <Tab.Screen name = "게시판" component = { Community } 
             options = {{ 
                 headerShown: false,
-                tabBarIcon: ({color, size, focused, marginTop}) => 
-                (<MyCalendarCustom foused = { focused } color = { color }  size = { size } marginTop = { marginTop } />), 
+                tabBarIcon: ({ color, size, focused, marginTop }) => 
+                (<CommunityCustom foused = { focused } color = { color }  size = { size } marginTop = { marginTop } />), 
             }} 
         />
-        <Tab.Screen name = "식물 찾기" component = { Search } 
+        <Tab.Screen name = "검색" component = { Search } 
             options = {{ 
                 headerShown: false,
-                tabBarIcon: ({color, size, focused, marginTop}) => 
+                tabBarIcon: ({ color, size, focused, marginTop }) => 
                 (<SearchCustom foused = { focused } color = { color }  size = { size } marginTop = { marginTop } />),
             }} 
         />
         <Tab.Screen name = "즐겨찾기" component = { Favorite } 
             options = {{ 
                 headerShown: false,
-                tabBarIcon: ({color, size, focused, marginTop}) => 
+                tabBarIcon: ({ color, size, focused, marginTop }) => 
                 (<FavoriteCustom foused = { focused } color = { color }  size = { size } marginTop = { marginTop } />), 
             }} 
         />
         <Tab.Screen name = "마이페이지" component = { MyPage }
             options = {{ 
                 headerShown: false,
-                tabBarIcon: ({color, size, focused, marginTop}) => 
+                tabBarIcon: ({ color, size, focused, marginTop }) => 
                 (<MyPageCustom foused = { focused } color = { color }  size = { size } marginTop = { marginTop } />),
             }} 
         />
     </Tab.Navigator>
+  </View>
 );
 //#endregion
 
 //#region 상단바 구성
 function App() {
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName = 'LoginPage'>
-        <Stack.Screen name = 'LoginPage' component = { LoginPage } options = {{ headerShown: false }} />
-        <Stack.Screen name = 'Home' 
-        component={ TabNavigator } 
-        options = {{ 
-          headerTitle: 'Plant-I', 
-          headerTitleStyle: { fontSize: 35, fontWeight: 'bold', color: 'black'},
-          headerTitleAlign: 'center',
-          headerStyle: { backgroundColor: '#a4c47a' },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <TouchableOpacity onPress = { () => alert('날씨 확인') }>
-              <MaterialIcons name="wb-sunny" size={ 25 } color="black" style = {{ marginLeft: 10 }} />
-            </TouchableOpacity>
-          ),
-          headerRight: () => (
-            <TouchableOpacity>
-              <Octicons name="bell-fill" size={ 25 } color="black" style = {{ marginRight: 10 }} />
-            </TouchableOpacity>
-          )
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName = 'LoginPage'>
+            <Stack.Screen name = 'LoginPage' component = { LoginPage } options = {{ headerShown: false }} />
+            <Stack.Screen name = 'SignUp' component = { SignUp } options = {{ headerShown: false }} />
+            <Stack.Screen name = 'FindingId' component = { FindingId } options = {{ headerShown: false }} />
+            <Stack.Screen name = 'FindingPw' component = { FindingPw } options = {{ headerShown: false }} />
+            <Stack.Screen name = 'EditPassword' component = { EditPassword } options = {{ headerShown: false }} />
+            <Stack.Screen name = 'Test' component = { Test } options = {{ headerShown: false }} />
+            <Stack.Screen name = 'Home' component={ TabNavigator } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 20, color: 'black' }} />,
+                headerTitleAlign: 'center',
+                headerStyle: { backgroundColor: 'white'},
+                headerShadowVisible: false,
+                headerBackVisible: false,
+                headerLeft: () => (
+                  <TouchableOpacity onPress = { () => navigation.navigate("Weather")}>
+                    <FontAwesome5 name="cloud-sun" size={ 20 } color="black" />
+                  </TouchableOpacity>
+                ),
+                headerRight: () => (
+                  <TouchableOpacity onPress = {() => navigation.navigate("NotifyPage")}>
+                    <Octicons name="bell-fill" size={ 20 } color="black" style = {{ marginRight: 10 }} />
+                  </TouchableOpacity>
+                )
+                })}
+            />
+            <Stack.Screen name = 'UserPlantInfo' component = { UserPlantInfo } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                headerTitleAlign: 'center',
+                headerStyle: { backgroundColor: 'white' },
+                headerShadowVisible: false,
+                headerBackVisible: false,
+                })} 
+              />
+              <Stack.Screen name = 'PlantRegister1' component = { PlantRegister1 } 
+                  options =  {({ navigation })  =>({ 
+                  headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                  })}
+              />
+              <Stack.Screen name = 'PlantRegister2' component = { PlantRegister2 } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                })}
+              />
+              <Stack.Screen name = 'EditProfile' component = { EditProfile } 
+                options =  {({ navigation })  =>({ 
+                  headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                  })} 
+              />
+              <Stack.Screen name = 'EditPlantInfo' component = { EditPlantInfo } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                })} 
+              />
+              <Stack.Screen name = 'NotifySettings' component = { NotifySettings } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                })} 
+              />
+              <Stack.Screen name = 'PlantDetail' component = { PlantDetail } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                })} 
+              />
+              <Stack.Screen name = 'Weather' component = { Weather } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                  })}
+              />
+              <Stack.Screen name = 'NotifyPage' component = { NotifyPage } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                  })}
+              />
+              <Stack.Screen name = 'WriteBoard' component = { WriteBoard } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                  })}
+              />
+              <Stack.Screen name = 'BoardContent' component = { BoardContent } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false,
+                  })}
+              />
+              <Stack.Screen name = 'EditBoardContent' component = { EditBoardContent } 
+                options =  {({ navigation })  =>({ 
+                headerTitle: () => <CustomHeaderTitle title="Plant-I" style={{ fontSize: 35, color: 'black' }} />,
+                  headerTitleAlign: 'center',
+                  headerStyle: { backgroundColor: 'white' },
+                  headerShadowVisible: false,
+                  headerBackVisible: false, 
+                  })}
+              />
+          </Stack.Navigator>
+        </NavigationContainer>
+    </UserProvider>
   );
 }
 export default App;
@@ -100,100 +237,32 @@ export default App;
 
 //#region 아이콘 스타일
 const HomeCustom = ({ color, size, foused }) => {  // 홈 아이콘
-  const iConColor = foused ? 'black' : 'grey';
+  const iConColor = foused ? 'black' : '#979797';
 
-  return (<Entypo name = "home" size = { 30 } color = { iConColor }/>)
+  return (<Entypo name = "home" size = { 25 } color = { iConColor }/>)
 }
 
-const MyCalendarCustom = ({ color, size, foused }) => {  // 달력 아이콘
-  const iConColor = foused ? 'black' : 'grey';
+const CommunityCustom = ({ color, size, foused }) => {  // 달력 아이콘
+  const iConColor = foused ? 'black' : '#979797';
 
-  return <Entypo name = "calendar" size = { 30 } color = { iConColor }/>
+  return <MaterialIcons name = "chat" size = { 25 } color = { iConColor } />
 }
 
 const SearchCustom = ({ color, size, foused }) => {  // 검색 아이콘
-  const iConColor = foused ? 'black' : 'grey';
+  const iConColor = foused ? 'black' : '#979797';
 
-  return <FontAwesome name = "search" size = { 30 } color = { iConColor }/>
+  return <FontAwesome name = "search" size = { 25 } color = { iConColor }/>
 }
 
 const FavoriteCustom = ({ color, size, foused }) => {  // 즐겨찾기 아이콘
-  const iConColor = foused ? 'black' : 'grey';
+  const iConColor = foused ? 'black' : '#979797';
 
-  return <AntDesign name = "heart" size={ 30 } color = { iConColor }/>
+  return <AntDesign name = "heart" size={ 25 } color = { iConColor }/>
 }
 
 const MyPageCustom = ({ color, size, foused }) => {  // 마이페이지 아이콘
-  const iConColor = foused ? 'black' : 'grey';  
+  const iConColor = foused ? 'black' : '#979797';  
 
-  return <FontAwesome5 name = "user-alt" size = { 30 } color = { iConColor }/>
+  return <FontAwesome5 name = "user-alt" size = { 25 } color = { iConColor }/>
 }
 //#endregion
-=======
-import { Button, Linking, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import SigninBtn, { SignupBtn } from './component/Button';
-
-
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-        <Text style = {styles.Title}>Plant-I</Text>
-      <View style = {styles.InputForm}>
-        <Text style = {{fontSize: 20, fontWeight: 'bold', position: 'relative', top: 15 }}>아이디</Text>
-        <TextInput style = {styles.input}></TextInput>
-        <Text style = {{fontSize: 20, fontWeight: 'bold', position: 'relative', top: 15 }}>비밀번호</Text>
-        <TextInput style = {styles.input} secureTextEntry={true}></TextInput>
-      </View>
-      <View style = {styles.Btn}>
-        <SigninBtn />
-        <SignupBtn />
-      </View>
-      {/* 아이디 찾기, 비밀번호 찾기 */}
-      <View style = {styles.Form}>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => alert('아이디 찾기')}>
-              <Text style = {{ fontSize: 15, fontWeight: 'bold' }}>아이디 찾기</Text>
-        </TouchableOpacity>
-
-        <Text style = {{ fontWeight: 'bold', fontSize: 15 }}> / </Text>
-
-        <TouchableOpacity activeOpacity={0.8} onPress={() => alert('비밀번호 찾기')}>
-              <Text style = {{ fontSize: 15,fontWeight: 'bold'}}>비밀번호 찾기</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
-
-
-const styles = StyleSheet.create({
-  container: {  
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column'
-  },
-  Title: {
-    fontSize: 40,
-    fontWeight: '900',
-    margin: 50,
-    position: 'relative',
-    bottom: 50
-  },
-  InputForm: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-  },
-  input: {
-    marginVertical: 25,
-    fontSize: 20,
-    width: 300,
-    borderBottomWidth: 0.8,
-    borderBottomColor: '#000000'
-  },
-  Form: {
-    marginTop: 15,
-    flexDirection: 'row',
-  }
-});
->>>>>>> e1f44321c583c3af8ed98b32271bf342d6151c23
