@@ -9,7 +9,7 @@ import CustomInput from '../Components/CustomInput';
 import AlertModal from '../Components/AlertModal';
 import CustomStatusBar from '../Components/CustomStatusBar';
 import SERVER_ADDRESS from '../Components/ServerAddress';
-
+//함수형 컴포넌트
 function LoginPage( { navigation } ){
 
   const { login } = useContext(UserContext);
